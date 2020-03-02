@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaCalc5000", "AquaCalc5000\AquaCalc5000.csproj", "{0E35D023-8A8C-4D60-BB2F-69832059F933}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RepoRoot", "RepoRoot", "{67D86BD9-E248-4972-BC34-6827FB601BFE}"
+	ProjectSection(SolutionItems) = preProject
+		..\appveyor.yml = ..\appveyor.yml
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{1C64616D-4CEB-46DA-A6E8-B0B912DE7C04}"
+	ProjectSection(SolutionItems) = preProject
+		..\data\NPR Keystone_WALL_MULTI-DEPTH_20180716.csv = ..\data\NPR Keystone_WALL_MULTI-DEPTH_20180716.csv
+		..\data\NPR_Lewellen_ICE_20180103.csv = ..\data\NPR_Lewellen_ICE_20180103.csv
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0E35D023-8A8C-4D60-BB2F-69832059F933}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E35D023-8A8C-4D60-BB2F-69832059F933}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E35D023-8A8C-4D60-BB2F-69832059F933}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E35D023-8A8C-4D60-BB2F-69832059F933}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1C64616D-4CEB-46DA-A6E8-B0B912DE7C04} = {67D86BD9-E248-4972-BC34-6827FB601BFE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5ED429BB-6757-4D5E-A398-83BCC633043D}
+	EndGlobalSection
+EndGlobal
