@@ -44,6 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Parser\AquaCalcConstants.cs" />
+    <Compile Include="Parser\AquaCalcCsvParser.cs" />
+    <Compile Include="Parser\CsvLine.cs" />
+    <Compile Include="Parser\CsvParser.cs" />
+    <Compile Include="Parser\ParsedData.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemCode\Parameters.cs" />

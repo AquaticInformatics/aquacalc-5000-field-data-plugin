@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using AquaCalc5000.Parser;
 using FieldDataPluginFramework;
 using FieldDataPluginFramework.Context;
 using FieldDataPluginFramework.DataModel;
@@ -11,20 +12,23 @@ namespace AquaCalc5000
     {
         public ParseFileResult ParseFile(Stream fileStream, IFieldDataResultsAppender appender, ILog logger)
         {
-            return DummyResult(appender, null);
+            return ParseFile(fileStream,null, appender, logger);
         }
 
         public ParseFileResult ParseFile(Stream fileStream, LocationInfo targetLocation,
             IFieldDataResultsAppender appender, ILog logger)
         {
-            return DummyResult(appender, targetLocation);
-        }
+            var parser = new AquaCalcCsvParser(fileStream);
+            if (!parser.CanParse())
+            {
+                return ParseFileResult.CannotParse();
+            }
 
-        private ParseFileResult DummyResult(IFieldDataResultsAppender appender, LocationInfo targetLocation)
-        {
+            var parsedData = parser.Parse();
+
             if (targetLocation == null)
             {
-                targetLocation = appender.GetLocationByIdentifier("Foo");
+                targetLocation = appender.GetLocationByIdentifier(parsedData.LocationIdentifier);
             }
 
             appender.AddFieldVisit(targetLocation, new FieldVisitDetails(new DateTimeInterval(
