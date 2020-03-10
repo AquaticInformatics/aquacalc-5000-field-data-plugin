@@ -1,11 +1,12 @@
-﻿namespace AquaCalc5000.Parser
+﻿namespace AquaCalc5000.Parsers
 {
     public static class AquaCalcConstants
     {
         //Header section:
         public const string AquaCalc5000 = "AquaCalc 5000";
         public const string GageId = "GAGE ID#"; //Stream Stage Gage ID
-        public const string Date = "DATE";//MM/DD/YYYY: 4/18/2018
+        public const string Date = "DATE";//M/d/yyyy: 4/18/2018 or M/d/yy
+        public const string Transect = "TRANSECT"; //1-5 transect# in AquaCalc
         public const string UserId = "USER ID#";
         public const string ShBegin = "SH BEGIN"; //Staff Height Begin: prior to measurement, the stage read from the outside Staff Gage.
         public const string ShEnd = "SH END"; //Staff Height End: upon the completion,the stage read from the outside Staff Gage.
@@ -47,7 +48,7 @@
         public const string CosineVerticalFactor = "COS:VF"; //Cosine Vertical Factor (for getting mean vertical velocity at a vertical wall)
         public const string Loc = "LOC"; //Measured point location: S (surface), 2, 6, 8, 9=B (bottom) or +=W (Wall).
         public const string Coef = "COEF"; //Coefficient
-        public const string Clock = "CLOCK"; //Measured timestamp
+        public const string Clock = "CLOCK"; //Measured timestamp: HH:MM
         public const string Vel = "VEL"; //Velocity
         public const string Area = "AREA";
         public const string FlowQ = "FLOW(Q)";

@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -47,8 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AquaCalcCsvParserTests.cs" />
-    <Compile Include="CsvParserTests.cs" />
+    <Compile Include="Parsers\AquaCalcCsvParserTests.cs" />
+    <Compile Include="Parsers\CsvParserTests.cs" />
+    <Compile Include="Parsers\ErrorFlagParserTests.cs" />
+    <Compile Include="Parsers\HeaderParserTests.cs" />
+    <Compile Include="Parsers\ObservationSectionParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBase.cs" />
   </ItemGroup>
@@ -63,6 +67,7 @@
       <Name>AquaCalc5000</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

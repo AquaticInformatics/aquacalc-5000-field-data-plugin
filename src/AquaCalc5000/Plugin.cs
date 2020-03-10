@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using AquaCalc5000.Parser;
+using AquaCalc5000.Parsers;
 using FieldDataPluginFramework;
 using FieldDataPluginFramework.Context;
 using FieldDataPluginFramework.DataModel;

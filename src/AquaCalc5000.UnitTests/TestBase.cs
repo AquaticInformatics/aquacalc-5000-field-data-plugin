@@ -7,6 +7,7 @@ namespace AquaCalc5000.UnitTests
     public abstract class TestBase
     {
         private readonly Assembly _testAssembly = Assembly.GetExecutingAssembly();
+        protected const string DefaultAquaCalcTestFileName = "AquaCalc5000Test.csv";
 
         protected Stream GetEmbeddedFileStream(string partialFileName)
         {

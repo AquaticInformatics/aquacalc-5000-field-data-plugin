@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using AquaCalc5000.Parser;
+using AquaCalc5000.Parsers;
 using NUnit.Framework;
 
-namespace AquaCalc5000.UnitTests
+namespace AquaCalc5000.UnitTests.Parsers
 {
     [TestFixture]
     public class CsvParserTests
@@ -35,6 +35,13 @@ namespace AquaCalc5000.UnitTests
         {
             var parser = new CsvParser(csv);
             Assert.That(() => parser.GetRequiredStringByLabel(label), Throws.ArgumentException);
+        }
+
+        [Test]
+        public void GetRequiredIntByLabel_ReturnsCorrectInteger()
+        {
+            var parser = new CsvParser("  TOTAL STATIONS  ,30");
+            Assert.That(parser.GetRequiredIntByLabel("TOTAL STATIONS"), Is.EqualTo(30));
         }
     }
 }
