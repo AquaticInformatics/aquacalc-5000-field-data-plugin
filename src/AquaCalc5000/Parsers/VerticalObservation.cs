@@ -11,12 +11,17 @@ namespace AquaCalc5000.Parsers
         //Same distance on all points:
         public double Distance => ObservationPoints.Average(point => point.Distance);
 
-        //Same depth for all points:
+        //Not always same depth for all points.
         public double Depth
         {
             get
             {
-                var averageDepth = ObservationPoints.Average(point => point.Depth);
+                var averageDepth = ObservationPoints
+                    .Where(point => point.Depth > 0)
+                    .Select(point => point.Depth)
+                    .DefaultIfEmpty()
+                    .Average();
+
                 if (averageDepth <= 0 && IceThickness > 0)
                 {
                     averageDepth = IceThickness;

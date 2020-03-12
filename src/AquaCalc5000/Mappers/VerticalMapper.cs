@@ -189,6 +189,7 @@ namespace AquaCalc5000.Mappers
             {
                 case "6":
                     return PointVelocityObservationType.OneAtPointSix;
+                case "2W":
                 case "28":
                     return PointVelocityObservationType.OneAtPointTwoAndPointEight;
                 case "268":
@@ -260,7 +261,8 @@ namespace AquaCalc5000.Mappers
                 stringBuilder.AppendLine(vertical.Comments);
             }
 
-            if (verticalObservation.LocationIndicators.Contains("W"))
+            if (verticalObservation.LocationIndicators.Count == 1 &&
+                verticalObservation.LocationIndicators.First() =="W")
             {
                 stringBuilder.AppendLine(CommonMapper.WallMeasurementMappedToPoint6);
             }

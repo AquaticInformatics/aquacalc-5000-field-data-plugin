@@ -8,9 +8,10 @@ namespace AquaCalc5000.Mappers
 {
     public class CommonMapper
     {
-        public const string WallMeasurementMappedToPoint6 = "Wall measurement. Mapped to .6"; 
-        public const string BottomMeasurementMappedToPoint6 = "Bottom measurement. Mapped to .6";
+        public const string WallMeasurementMappedToPoint6 = "Wall measurement. Mapped to .6."; 
+        public const string BottomMeasurementMappedToPoint6 = "Bottom measurement. Mapped to .6.";
         public const string CosVfEquals = "COS:VF=";
+        public const string Location6AdjustedTo2DueToWallMeasurement = "Location 6 adjusted to 2 due to wall measurement.";
 
         public static DeploymentMethodType GetDeploymentMethodBySoundingWeight(double soundingWeight)
         {

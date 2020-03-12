@@ -80,7 +80,10 @@ namespace AquaCalc5000.Parsers
 
             foreach (var observation in verticalObservations)
             {
-                observation.Comments = parser.GetNoteByFlags(observation.Flags);
+                var flagComment = parser.GetNoteByFlags(observation.Flags);
+                observation.Comments = string.IsNullOrWhiteSpace(observation.Comments)
+                    ? flagComment
+                    : $"{observation.Comments}{Environment.NewLine}{flagComment}";
             }
         }
     }

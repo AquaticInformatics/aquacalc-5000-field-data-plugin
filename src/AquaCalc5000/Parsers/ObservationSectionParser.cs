@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AquaCalc5000.Mappers;
 
 namespace AquaCalc5000.Parsers
 {
@@ -20,7 +21,7 @@ namespace AquaCalc5000.Parsers
                 l.Parts.Any(s => s == AquaCalcConstants.Distance));
             if (headerLine == null)
             {
-                throw new ArgumentException($"Missing header line for observation section.");
+                throw new ArgumentException("Missing header line for observation section.");
             }
 
             var headers = headerLine.Parts.Select((header, index) => new { header, index })
@@ -31,9 +32,48 @@ namespace AquaCalc5000.Parsers
 
             var observationPoints = GetObservationPoints(headers, obsPointLines);
 
-            var observationGroups = observationPoints.GroupBy(p => new { p.Depth, p.Distance }).ToList();
+            var observationGroups = observationPoints.GroupBy(p => new { p.Distance }).ToList();
 
-            return observationGroups.Select(g => new VerticalObservation { ObservationPoints = g.ToList() }).ToList();
+            var verticalObservations = observationGroups.Select(g => new VerticalObservation { ObservationPoints = g.ToList()}).ToList();
+            CleanupObservationPoints(verticalObservations);
+
+            return verticalObservations;
+        }
+
+        private static void CleanupObservationPoints(List<VerticalObservation> verticalObservations)
+        {
+            foreach (var observation in verticalObservations)
+            {
+                AdjustLocationsWithWall(observation);
+                RemoveDuplicateSurfacePoints(observation);
+            }
+        }
+
+        private static void AdjustLocationsWithWall(VerticalObservation observation)
+        {
+            var points = observation.ObservationPoints;
+            var locations = string.Join("", observation.LocationIndicators.OrderBy(loc => loc));
+
+            if (points.Count == 2 && locations == "6W")
+            {
+                var location6Point = points.First(point => point.ObsLocationIndicator == "6");
+                location6Point.ObsLocationIndicator = "2";
+                observation.Comments = CommonMapper.Location6AdjustedTo2DueToWallMeasurement;
+            }
+        }
+
+        private static void RemoveDuplicateSurfacePoints(VerticalObservation observation)
+        {
+            var points = observation.ObservationPoints;
+            var surfacePoints = points.Where(p => p.Distance <= 0 &&
+                                                  p.Depth <= 0 &&
+                                                  p.TimeSeconds <= 0 &&
+                                                  p.FlowQ <= 0 &&
+                                                  p.Area <= 0).ToList();
+            if (points.Count == surfacePoints.Count)
+            {
+                observation.ObservationPoints = points.Take(1).ToList();
+            }
         }
 
         private List<ObservationPoint> GetObservationPoints(IDictionary<string, int> headers, List<CsvLine> obsPointLines)
