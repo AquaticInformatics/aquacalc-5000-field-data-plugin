@@ -44,6 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mappers\ActivityMapper.cs" />
+    <Compile Include="Mappers\CommonMapper.cs" />
+    <Compile Include="Mappers\VerticalMapper.cs" />
+    <Compile Include="Mappers\VisitMapper.cs" />
     <Compile Include="Parsers\AquaCalcConstants.cs" />
     <Compile Include="Parsers\AquaCalcCsvParser.cs" />
     <Compile Include="Parsers\CsvLine.cs" />

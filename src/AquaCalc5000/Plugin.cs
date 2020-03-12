@@ -1,5 +1,5 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
+using AquaCalc5000.Mappers;
 using AquaCalc5000.Parsers;
 using FieldDataPluginFramework;
 using FieldDataPluginFramework.Context;
@@ -31,11 +31,25 @@ namespace AquaCalc5000
                 targetLocation = appender.GetLocationByIdentifier(parsedData.LocationIdentifier);
             }
 
-            appender.AddFieldVisit(targetLocation, new FieldVisitDetails(new DateTimeInterval(
-                new DateTimeOffset(2000, 1, 1, 0, 0, 0, TimeSpan.Zero),
-                TimeSpan.FromHours(1))));
+            var visitDetails = new VisitMapper(parsedData).GetVisitDetails(targetLocation.UtcOffset);
+            logger.Info($"Got visit details: '{visitDetails.StartDate:s}@{targetLocation.LocationIdentifier}'");
+
+            var visitInfo = appender.AddFieldVisit(targetLocation,visitDetails);
+            
+            AppendActivity(appender, parsedData, visitInfo, logger);
 
             return ParseFileResult.SuccessfullyParsedAndDataValid();
+        }
+
+        private void AppendActivity(IFieldDataResultsAppender appender, ParsedData parsedData,
+            FieldVisitInfo visitInfo, ILog logger)
+        {
+            var visitInterval = new DateTimeInterval(visitInfo.StartDate, visitInfo.EndDate);
+            var dischargeActivity = new ActivityMapper(parsedData, visitInterval)
+                .GetDischargeActivity();
+            logger.Info($"Got discharge activity for {visitInfo.StartDate:s}@{visitInfo.LocationInfo.LocationIdentifier}.");
+
+            appender.AddDischargeActivity(visitInfo, dischargeActivity);
         }
     }
 }

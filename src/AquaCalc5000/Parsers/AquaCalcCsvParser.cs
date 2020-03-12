@@ -32,10 +32,11 @@ namespace AquaCalc5000.Parsers
 
         public bool CanParse()
         {
-            var firstLine = _csvParser.GetFirstNonEmptyLineOrNull();
+            var firstLine = _csvParser.GetFirstLineByFilterOrNull(csvLine => 
+                csvLine != null && 
+                csvLine.OriginalLine.StartsWith(AquaCalcConstants.AquaCalc5000));
 
-            return firstLine != null &&
-                   firstLine.OriginalLine.StartsWith(AquaCalcConstants.AquaCalc5000);
+            return firstLine != null;
         }
 
         public ParsedData Parse()
@@ -43,13 +44,12 @@ namespace AquaCalc5000.Parsers
             var parsedData = new HeaderParser(_csvParser).Parse();
 
             parsedData.ObservationSectionLines = GetObservationSectionLines();
-            parsedData.VerticalObservations = new ObservationSectionParser(parsedData.ObservationSectionLines).GetVerticals();
+            parsedData.VerticalObservations = new ObservationSectionParser(parsedData.ObservationSectionLines)
+                .GetVerticalObservations();
 
             var lastObservationLineNum = parsedData.ObservationSectionLines.Select(l => l.LineNumber).Max();
             parsedData.ErrorFlagLines = GetErrorFlagFooterLines(lastObservationLineNum);
             ParseErrorFlagsAsObservationComments(parsedData.VerticalObservations, parsedData.ErrorFlagLines);
-
-            SanityCheckParsedData(parsedData);
 
             return parsedData;
         }
@@ -71,23 +71,6 @@ namespace AquaCalc5000.Parsers
                 .ToList();
 
             return flagLines;
-        }
-
-        private void SanityCheckParsedData(ParsedData parsedData)
-        {
-            var totalParsedPoints = parsedData.ObservationSectionLines.Count -1;
-            if (parsedData.TotalStations != totalParsedPoints)
-            {
-                throw new ArgumentException($"The number of parsed observation points {totalParsedPoints} is not the same as " +
-                                            $"the header Total Stations {parsedData.TotalStations}");
-            }
-
-            var totalParsedVerticals = parsedData.VerticalObservations.Count;
-            if (parsedData.TotalVerticals != totalParsedVerticals)
-            {
-                throw new ArgumentException($"The number of parsed verticals {totalParsedVerticals} is not the same as " +
-                                            $"the header Total Stations {parsedData.TotalVerticals}");
-            }
         }
 
         private void ParseErrorFlagsAsObservationComments(List<VerticalObservation> verticalObservations,

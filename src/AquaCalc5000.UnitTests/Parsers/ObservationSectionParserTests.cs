@@ -18,7 +18,7 @@ namespace AquaCalc5000.UnitTests.Parsers
             }
 
             var parser = new ObservationSectionParser(parsedData.ObservationSectionLines);
-            var observations = parser.GetVerticals();
+            var observations = parser.GetVerticalObservations();
 
             Assert.That(observations.Count, Is.EqualTo(23));
 

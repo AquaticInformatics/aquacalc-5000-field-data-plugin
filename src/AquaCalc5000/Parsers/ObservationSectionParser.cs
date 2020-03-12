@@ -13,7 +13,7 @@ namespace AquaCalc5000.Parsers
             _obsCsvLines = obsCsvLines;
         }
 
-        public List<VerticalObservation> GetVerticals()
+        public List<VerticalObservation> GetVerticalObservations()
         {
             var headerLine = _obsCsvLines.FirstOrDefault(l =>
                 l.Parts.Any(s => s == AquaCalcConstants.ObsSeq) &&

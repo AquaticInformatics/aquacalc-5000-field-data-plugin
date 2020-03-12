@@ -111,25 +111,26 @@ namespace AquaCalc5000.Parsers
 
         public CsvLine GetFirstLineByFilterOrNull(Func<CsvLine, bool> filterFunc)
         {
-            var foundLine = _csvLines.FirstOrDefault(filterFunc);
-            if (foundLine == null)
-            {
-                throw new ArgumentException("Could not find the required line.");
-            }
-
-            return foundLine;
+            return _csvLines.FirstOrDefault(filterFunc);
         }
 
         public int GetRequiredIntByLabel(string label)
         {
+            var parts = GetRequiredValueLine(label).Parts;
+
+            return int.Parse(parts[1]);
+        }
+
+        private CsvLine GetRequiredValueLine(string label)
+        {
             var foundLine = GetRequiredLineByLabel(label);
-            var parts = foundLine.Parts;
-            if (parts.Count < 2)
+
+            if (foundLine.Parts.Count < 2)
             {
                 throw new ArgumentException($"Required value is not found for '{label}'");
             }
 
-            return int.Parse(parts[1]);
+            return foundLine;
         }
 
         public List<CsvLine> GetAllLinesByFilter(Func<CsvLine, bool> filterFunc)
@@ -140,6 +141,13 @@ namespace AquaCalc5000.Parsers
         public int GetLastLineNum()
         {
             return _csvLines.Any() ? _csvLines.Last().LineNumber : 0;
+        }
+
+        public double GetRequiredDoubleByLabel(string label)
+        {
+            var parts = GetRequiredValueLine(label).Parts;
+
+            return double.Parse(parts[1]);
         }
     }
 }

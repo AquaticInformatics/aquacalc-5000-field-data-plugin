@@ -7,14 +7,14 @@ Firmware Version AQCUSH8c (c)1995-2000
         TRANSECT  ,01
         USER ID#  ,1482
         SH BEGIN  ,8.11
-          SH END  ,8.11
-        GH BEGIN  ,8.11
-          GH END  ,8.11
+          SH END  ,8.12
+        GH BEGIN  ,8.13
+          GH END  ,8.14
   EST. DISCHARGE  ,0.00
   EST. Q (ADJ)    ,1190.00
        METER ID#  ,121
     AQUACALC ID#  ,1015
-    SOUNDING WT.  ,0
+    SOUNDING WT.  ,11.50
   START MEAS. AT  ,LEW
       METER TYPE  ,Price AA 1:1 ST2
  METER CONST. C1  ,2.2048
