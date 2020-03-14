@@ -7,12 +7,13 @@ namespace AquaCalc5000.Parsers
 {
     public class CsvParser
     {
-        private const char DelimiterChar = ',';
-
         private readonly List<CsvLine> _csvLines;
 
-        public CsvParser(string csvText)
+        private readonly char _delimiterChar;
+
+        public CsvParser(string csvText, char delimiterChar = ',')
         {
+            _delimiterChar = delimiterChar;
             _csvLines = ParseToCsvLines(csvText);
         }
 
@@ -50,7 +51,7 @@ namespace AquaCalc5000.Parsers
                 return new List<string>();
             }
 
-            return line.Split(DelimiterChar).Select(s => s.Trim()).ToList();
+            return line.Split(_delimiterChar).Select(s => s.Trim()).ToList();
         }
 
         public CsvLine GetFirstNonEmptyLineOrNull()
@@ -74,7 +75,7 @@ namespace AquaCalc5000.Parsers
                 throw new ArgumentException($"Required value is not found for '{label}'");
             }
 
-            var combinedString = string.Join(DelimiterChar.ToString(),
+            var combinedString = string.Join(_delimiterChar.ToString(),
                 parts.Skip(1).Where(p => !string.IsNullOrWhiteSpace(p)));
 
             if (string.IsNullOrWhiteSpace(combinedString))
@@ -148,6 +149,18 @@ namespace AquaCalc5000.Parsers
             var parts = GetRequiredValueLine(label).Parts;
 
             return double.Parse(parts[1]);
+        }
+
+        public bool GetRequiredBooleanByLabelOrDefault(string label)
+        {
+            var parts = GetRequiredValueLine(label).Parts;
+
+            if (bool.TryParse(parts[1], out bool bValue))
+            {
+                return bValue;
+            }
+
+            return true;
         }
     }
 }

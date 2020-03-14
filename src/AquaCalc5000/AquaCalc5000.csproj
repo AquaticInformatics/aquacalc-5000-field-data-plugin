@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\Config.cs" />
+    <Compile Include="Config\ConfigLoader.cs" />
     <Compile Include="Mappers\ActivityMapper.cs" />
     <Compile Include="Mappers\CommonMapper.cs" />
     <Compile Include="Mappers\VerticalMapper.cs" />
@@ -65,6 +67,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Config.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

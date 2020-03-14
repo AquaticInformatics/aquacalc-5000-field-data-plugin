@@ -43,5 +43,15 @@ namespace AquaCalc5000.UnitTests.Parsers
             var parser = new CsvParser("  TOTAL STATIONS  ,30");
             Assert.That(parser.GetRequiredIntByLabel("TOTAL STATIONS"), Is.EqualTo(30));
         }
+
+        [TestCase("IsUsgsSite = true", true)]
+        [TestCase("IsUsgsSite=false", false)]
+        [TestCase("IsUsgsSite=True", true)]
+        [TestCase("IsUsgsSite=typoTrue", true)]
+        public void GetRequiredBooleanByLabelOrDefault_ParsesBooleanCorrectly(string text, bool expected)
+        {
+            var parser = new CsvParser(text, delimiterChar: '=');
+            Assert.That(parser.GetRequiredBooleanByLabelOrDefault("IsUsgsSite"), Is.EqualTo(expected));
+        }
     }
 }

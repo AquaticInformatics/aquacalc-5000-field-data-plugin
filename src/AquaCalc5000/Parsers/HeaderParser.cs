@@ -16,7 +16,7 @@ namespace AquaCalc5000.Parsers
         {
             return new ParsedData
             {
-                LocationIdentifier = _csvParser.GetRequiredStringByLabel(AquaCalcConstants.GageId),
+                GageId = _csvParser.GetRequiredStringByLabel(AquaCalcConstants.GageId),
                 StartDate = GetVisitDate(),
                 Transect = _csvParser.GetRequiredIntByLabel(AquaCalcConstants.Transect),
                 UserId = _csvParser.GetRequiredStringByLabel(AquaCalcConstants.UserId),
