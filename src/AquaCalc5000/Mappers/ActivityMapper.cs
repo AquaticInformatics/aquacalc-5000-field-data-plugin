@@ -1,6 +1,5 @@
 ﻿using System;
 using AquaCalc5000.Parsers;
-using AquaCalc5000.SystemCode;
 using FieldDataPluginFramework.DataModel;
 using FieldDataPluginFramework.DataModel.ChannelMeasurements;
 using FieldDataPluginFramework.DataModel.DischargeActivities;
@@ -21,7 +20,7 @@ namespace AquaCalc5000.Mappers
 
         public DischargeActivity GetDischargeActivity()
         {
-            var unitSystem = GetUnitSystem();
+            var unitSystem = CommonMapper.GetUnitSystem(_parsedData);
             var observationInterval = CommonMapper.GetObservationTimeInterval(_visitInterval.Start,
                 _parsedData);
 
@@ -30,21 +29,6 @@ namespace AquaCalc5000.Mappers
             SetManualGaugingSection(dischargeActivity, unitSystem, observationInterval);
             
             return dischargeActivity;
-        }
-
-        private UnitSystem GetUnitSystem()
-        {
-            var unitSystemCode = _parsedData.UnitSystem;
-
-            switch (unitSystemCode)
-            {
-                case "SAE":
-                    return Units.ImperialUnitSystem;
-                case "SI":
-                    return Units.MetricUnitSystem;
-                default:
-                    throw new ArgumentException($"Unknown unit system code:'{unitSystemCode}'");
-            }
         }
 
         private DischargeActivity CreateDischargeActivityWithSummary(DateTimeInterval observationInterval, UnitSystem unitSystem)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using AquaCalc5000.Config;
 
 namespace AquaCalc5000.Parsers
 {
@@ -41,7 +42,11 @@ namespace AquaCalc5000.Parsers
 
         public ParsedData Parse()
         {
+            var config = new ConfigLoader().Load();
+
             var parsedData = new HeaderParser(_csvParser).Parse();
+
+            parsedData.GageId = ConvertGageIdToLocationIdentifier(parsedData.GageId, config);
 
             parsedData.ObservationSectionLines = GetObservationSectionLines();
             parsedData.VerticalObservations = new ObservationSectionParser(parsedData.ObservationSectionLines)
@@ -52,6 +57,16 @@ namespace AquaCalc5000.Parsers
             ParseErrorFlagsAsObservationComments(parsedData.VerticalObservations, parsedData.ErrorFlagLines);
 
             return parsedData;
+        }
+
+        private string ConvertGageIdToLocationIdentifier(string gageId, Config.Config config)
+        {
+            if (!config.AssumeUsgsSiteIdentifiers)
+                return gageId;
+
+            return int.TryParse(gageId, out var numericId)
+                ? $"{numericId:D8}"
+                : gageId;
         }
 
         private List<CsvLine> GetObservationSectionLines()

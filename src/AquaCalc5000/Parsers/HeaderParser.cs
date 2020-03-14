@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace AquaCalc5000.Parsers
 {
@@ -16,7 +17,8 @@ namespace AquaCalc5000.Parsers
         {
             return new ParsedData
             {
-                LocationIdentifier = _csvParser.GetRequiredStringByLabel(AquaCalcConstants.GageId),
+                FirmwareVersion = GetFirmwareVerion(),
+                GageId = _csvParser.GetRequiredStringByLabel(AquaCalcConstants.GageId),
                 StartDate = GetVisitDate(),
                 Transect = _csvParser.GetRequiredIntByLabel(AquaCalcConstants.Transect),
                 UserId = _csvParser.GetRequiredStringByLabel(AquaCalcConstants.UserId),
@@ -30,6 +32,11 @@ namespace AquaCalc5000.Parsers
                 SoundingWeight = _csvParser.GetRequiredDoubleByLabel(AquaCalcConstants.SoundingWt),
                 StartMode = _csvParser.GetRequiredStringByLabel(AquaCalcConstants.StartMeasAt),
                 MeterType = _csvParser.GetRequiredStringByLabel(AquaCalcConstants.MeterType),
+                MeterConst1 = _csvParser.GetRequiredDoubleByLabel(AquaCalcConstants.MeterConstC1),
+                MeterConst2 = _csvParser.GetRequiredDoubleByLabel(AquaCalcConstants.MeterConstC2),
+                MeterConst3 = _csvParser.GetRequiredDoubleByLabel(AquaCalcConstants.MeterConstC3),
+                MeterConst4 = _csvParser.GetRequiredDoubleByLabel(AquaCalcConstants.MeterConstC4),
+                MeterConst5 = _csvParser.GetRequiredDoubleByLabel(AquaCalcConstants.MeterConstC5),
 
                 UnitSystem = _csvParser.GetRequiredStringByLabel(AquaCalcConstants.MeasSystem),
 
@@ -41,6 +48,26 @@ namespace AquaCalc5000.Parsers
 
                 MeanVelocity = _csvParser.GetRequiredDoubleByLabel(AquaCalcConstants.MeanVelocity),
             };
+        }
+
+        private string GetFirmwareVerion()
+        {
+            var line = _csvParser.GetFirstLineByFilterOrNull(l =>
+                l.OriginalLine.IndexOf(AquaCalcConstants.FirmwareVersion,StringComparison.OrdinalIgnoreCase) >= 0);
+
+            if (string.IsNullOrWhiteSpace(line?.OriginalLine))
+            {
+                return string.Empty;
+            }
+
+            var regEx = new Regex($@"{AquaCalcConstants.FirmwareVersion}\s+(?<Version>.+)\s+\(c\)");
+            var match = regEx.Match(line.OriginalLine);
+            if (match.Success && match.Groups["Version"].Success)
+            {
+                return match.Groups["Version"].Value;
+            }
+
+            return string.Empty;
         }
 
         public DateTime GetVisitDate()

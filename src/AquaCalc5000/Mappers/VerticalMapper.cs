@@ -74,11 +74,45 @@ namespace AquaCalc5000.Mappers
                     Manufacturer = manufacturer,
                     Model = meterTypeString,
                     //SoftwareVersion: N/A
+                    FirmwareVersion = _parsedData.FirmwareVersion,
                     SerialNumber = serialNumber,
                     MeterType = GetMeterTypeEnumOrUnspecified(meterTypeString),
                 };
 
+            SetEquations(calibration);
+
             return calibration;
+        }
+
+        private void SetEquations(MeterCalibration calibration)
+        {
+            var slope1 = _parsedData.MeterConst1;
+            var intercept1 = _parsedData.MeterConst2;
+            var slope2 = _parsedData.MeterConst3;
+            var intercept2 = _parsedData.MeterConst4;
+
+            var interceptUnit = CommonMapper.GetUnitSystem(_parsedData).VelocityUnitId;
+
+            //Sample files show: C5=0, C3=C1, C4=C2. This should be 1 segment equation. 
+            if (!AreEqualDoubles(slope1, 0.0d) || !AreEqualDoubles(intercept1, 0.0d))
+            {
+                calibration.Equations.Add(
+                    new MeterCalibrationEquation { Slope = slope1, Intercept = intercept1, InterceptUnitId = interceptUnit});
+            }
+
+            //Assuming this is a 2 segment equation setup:
+            if (!AreEqualDoubles(slope1, slope2) ||
+                !AreEqualDoubles(intercept1, intercept2))
+            {
+                calibration.Equations.Add(
+                    new MeterCalibrationEquation { Slope = slope2, Intercept = intercept2, InterceptUnitId = interceptUnit
+                });
+            }
+        }
+
+        private static bool AreEqualDoubles(double d1, double d2)
+        {
+            return Math.Abs(d1 - d2) < 0.0000001;
         }
 
         private MeterType GetMeterTypeEnumOrUnspecified(string meterTypeString)

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using AquaCalc5000.Parsers;
+using AquaCalc5000.SystemCode;
 using FieldDataPluginFramework.DataModel;
 using FieldDataPluginFramework.DataModel.ChannelMeasurements;
+using FieldDataPluginFramework.Units;
 
 namespace AquaCalc5000.Mappers
 {
@@ -37,6 +39,21 @@ namespace AquaCalc5000.Mappers
             var endDateTimeOffset = startDateTimeOffset.Add(endTime - startTime);
 
             return new DateTimeInterval(startDateTimeOffset, endDateTimeOffset);
+        }
+
+        public static UnitSystem GetUnitSystem(ParsedData parsedData)
+        {
+            var unitSystemCode = parsedData.UnitSystem;
+
+            switch (unitSystemCode)
+            {
+                case "SAE":
+                    return Units.ImperialUnitSystem;
+                case "SI":
+                    return Units.MetricUnitSystem;
+                default:
+                    throw new ArgumentException($"Unknown unit system code:'{unitSystemCode}'");
+            }
         }
     }
 }

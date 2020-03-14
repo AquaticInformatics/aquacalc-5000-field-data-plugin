@@ -14,7 +14,9 @@ namespace AquaCalc5000.UnitTests.Parsers
             var csvParser = new CsvParser(csvText);
             var parsedData = new HeaderParser(csvParser).Parse();
 
-            Assert.That(parsedData.LocationIdentifier, Is.EqualTo("6687500"));
+            Assert.That(parsedData.FirmwareVersion, Is.EqualTo("AQCUSH8c"));
+
+            Assert.That(parsedData.GageId, Is.EqualTo("6687500"));
             Assert.That(parsedData.StartDate, Is.EqualTo(new DateTime(2018, 01, 03)));
             Assert.That(parsedData.Transect, Is.EqualTo(1));
             Assert.That(parsedData.UserId, Is.EqualTo("1482"));
@@ -28,6 +30,11 @@ namespace AquaCalc5000.UnitTests.Parsers
             Assert.That(parsedData.SoundingWeight, Is.EqualTo(11.5));
             Assert.That(parsedData.StartMode, Is.EqualTo("LEW"));
             Assert.That(parsedData.MeterType, Is.EqualTo("Price AA 1:1 ST2"));
+            Assert.That(parsedData.MeterConst1, Is.EqualTo(2.2048));
+            Assert.That(parsedData.MeterConst2, Is.EqualTo(0.0178));
+            Assert.That(parsedData.MeterConst3, Is.EqualTo(2.2048));
+            Assert.That(parsedData.MeterConst4, Is.EqualTo(0.0178));
+            Assert.That(parsedData.MeterConst5, Is.EqualTo(0));
 
             Assert.That(parsedData.UnitSystem, Is.EqualTo("SAE"));
 

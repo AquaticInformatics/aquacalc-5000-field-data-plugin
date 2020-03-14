@@ -28,7 +28,7 @@ namespace AquaCalc5000
 
             if (targetLocation == null)
             {
-                targetLocation = appender.GetLocationByIdentifier(parsedData.LocationIdentifier);
+                targetLocation = appender.GetLocationByIdentifier(parsedData.GageId);
             }
 
             var visitDetails = new VisitMapper(parsedData).GetVisitDetails(targetLocation.UtcOffset);

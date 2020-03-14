@@ -5,7 +5,9 @@ namespace AquaCalc5000.Parsers
 {
     public class ParsedData
     {
-        public string LocationIdentifier { get; set; }
+        public string FirmwareVersion { get; set; }
+
+        public string GageId { get; set; }
         public DateTime StartDate { get; set; }
         public int Transect { get; set; }
         public string UserId { get; set; }
@@ -19,6 +21,11 @@ namespace AquaCalc5000.Parsers
         public double SoundingWeight { get; set; }
         public string StartMode { get; set; }
         public string MeterType { get; set; }
+        public double MeterConst1 { get; set; }
+        public double MeterConst2 { get; set; }
+        public double MeterConst3 { get; set; }
+        public double MeterConst4 { get; set; }
+        public double MeterConst5 { get; set; }
 
         public string UnitSystem { get; set; }
 

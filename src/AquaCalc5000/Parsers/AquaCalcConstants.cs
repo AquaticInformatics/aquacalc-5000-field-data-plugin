@@ -7,6 +7,8 @@
 
         //Header section:
         public const string AquaCalc5000 = "AquaCalc 5000";
+        public const string FirmwareVersion = "Firmware Version";
+
         public const string GageId = "GAGE ID#"; //Stream Stage Gage ID
         public const string Date = "DATE";//M/d/yyyy: 4/18/2018 or M/d/yy
         public const string Transect = "TRANSECT"; //1-15 transect# in AquaCalc
@@ -22,11 +24,13 @@
         public const string SoundingWt = "SOUNDING WT.";//Sounding Weight: 0 = wading rod, >0=a suspension measurement. Page 113.
         public const string StartMeasAt = "START MEAS. AT"; //Start mode. LEW: left edge of water; REW: right edge.
         public const string MeterType = "METER TYPE";//E.g.,Price AA 1:1, Price AA 5:1, Pygmy or Non-Standard
-        public const string MeterConstC1 = "METER CONST. C1";//Meter constants for the standard meters, Price and Pygmy.
-        public const string MeterConstC2 = "METER CONST. C2";
-        public const string MeterConstC3 = "METER CONST. C3";
-        public const string MeterConstC4 = "METER CONST. C4";
-        public const string MeterConstC5 = "METER CONST. C5";
+        //Meter constants for the standard meters, Price and Pygmy. Page 66 
+        public const string MeterConstC1 = "METER CONST. C1";//Slope 1
+        public const string MeterConstC2 = "METER CONST. C2";//Intercept 1
+        public const string MeterConstC3 = "METER CONST. C3";//Slope 2
+        public const string MeterConstC4 = "METER CONST. C4";//Intercept 2
+        public const string MeterConstC5 = "METER CONST. C5";//Cross over velocity
+
         public const string MeasurementTime = "MEASUREMENT TIME";//Time interval (seconds) of rotations (0-99). Default:40 
         public const string MeasSystem = "MEAS. SYSTEM";//Unit system. SAE: Imperial, Society of Automotive Engineers. SI: Metric
         public const string PercentSlope = "PERCENT SLOPE";//slope of the stream to calculate Manning n value.
