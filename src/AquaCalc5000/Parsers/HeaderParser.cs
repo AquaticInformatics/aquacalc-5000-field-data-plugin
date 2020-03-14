@@ -30,6 +30,11 @@ namespace AquaCalc5000.Parsers
                 SoundingWeight = _csvParser.GetRequiredDoubleByLabel(AquaCalcConstants.SoundingWt),
                 StartMode = _csvParser.GetRequiredStringByLabel(AquaCalcConstants.StartMeasAt),
                 MeterType = _csvParser.GetRequiredStringByLabel(AquaCalcConstants.MeterType),
+                MeterConst1 = _csvParser.GetRequiredDoubleByLabel(AquaCalcConstants.MeterConstC1),
+                MeterConst2 = _csvParser.GetRequiredDoubleByLabel(AquaCalcConstants.MeterConstC2),
+                MeterConst3 = _csvParser.GetRequiredDoubleByLabel(AquaCalcConstants.MeterConstC3),
+                MeterConst4 = _csvParser.GetRequiredDoubleByLabel(AquaCalcConstants.MeterConstC4),
+                MeterConst5 = _csvParser.GetRequiredDoubleByLabel(AquaCalcConstants.MeterConstC5),
 
                 UnitSystem = _csvParser.GetRequiredStringByLabel(AquaCalcConstants.MeasSystem),
 

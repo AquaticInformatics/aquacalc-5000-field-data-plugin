@@ -28,6 +28,11 @@ namespace AquaCalc5000.UnitTests.Parsers
             Assert.That(parsedData.SoundingWeight, Is.EqualTo(11.5));
             Assert.That(parsedData.StartMode, Is.EqualTo("LEW"));
             Assert.That(parsedData.MeterType, Is.EqualTo("Price AA 1:1 ST2"));
+            Assert.That(parsedData.MeterConst1, Is.EqualTo(2.2048));
+            Assert.That(parsedData.MeterConst2, Is.EqualTo(0.0178));
+            Assert.That(parsedData.MeterConst3, Is.EqualTo(2.2048));
+            Assert.That(parsedData.MeterConst4, Is.EqualTo(0.0178));
+            Assert.That(parsedData.MeterConst5, Is.EqualTo(0));
 
             Assert.That(parsedData.UnitSystem, Is.EqualTo("SAE"));
 
