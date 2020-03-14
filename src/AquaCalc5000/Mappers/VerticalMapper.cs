@@ -74,6 +74,7 @@ namespace AquaCalc5000.Mappers
                     Manufacturer = manufacturer,
                     Model = meterTypeString,
                     //SoftwareVersion: N/A
+                    FirmwareVersion = _parsedData.FirmwareVersion,
                     SerialNumber = serialNumber,
                     MeterType = GetMeterTypeEnumOrUnspecified(meterTypeString),
                 };

@@ -7,6 +7,8 @@
 
         //Header section:
         public const string AquaCalc5000 = "AquaCalc 5000";
+        public const string FirmwareVersion = "Firmware Version";
+
         public const string GageId = "GAGE ID#"; //Stream Stage Gage ID
         public const string Date = "DATE";//M/d/yyyy: 4/18/2018 or M/d/yy
         public const string Transect = "TRANSECT"; //1-15 transect# in AquaCalc

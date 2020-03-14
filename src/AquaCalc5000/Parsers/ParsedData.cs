@@ -5,6 +5,8 @@ namespace AquaCalc5000.Parsers
 {
     public class ParsedData
     {
+        public string FirmwareVersion { get; set; }
+
         public string GageId { get; set; }
         public DateTime StartDate { get; set; }
         public int Transect { get; set; }

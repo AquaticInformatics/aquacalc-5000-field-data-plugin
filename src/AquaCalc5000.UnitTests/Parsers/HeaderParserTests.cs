@@ -14,6 +14,8 @@ namespace AquaCalc5000.UnitTests.Parsers
             var csvParser = new CsvParser(csvText);
             var parsedData = new HeaderParser(csvParser).Parse();
 
+            Assert.That(parsedData.FirmwareVersion, Is.EqualTo("AQCUSH8c"));
+
             Assert.That(parsedData.GageId, Is.EqualTo("6687500"));
             Assert.That(parsedData.StartDate, Is.EqualTo(new DateTime(2018, 01, 03)));
             Assert.That(parsedData.Transect, Is.EqualTo(1));

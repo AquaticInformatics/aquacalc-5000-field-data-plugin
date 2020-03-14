@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace AquaCalc5000.Parsers
 {
@@ -16,6 +17,7 @@ namespace AquaCalc5000.Parsers
         {
             return new ParsedData
             {
+                FirmwareVersion = GetFirmwareVerion(),
                 GageId = _csvParser.GetRequiredStringByLabel(AquaCalcConstants.GageId),
                 StartDate = GetVisitDate(),
                 Transect = _csvParser.GetRequiredIntByLabel(AquaCalcConstants.Transect),
@@ -46,6 +48,26 @@ namespace AquaCalc5000.Parsers
 
                 MeanVelocity = _csvParser.GetRequiredDoubleByLabel(AquaCalcConstants.MeanVelocity),
             };
+        }
+
+        private string GetFirmwareVerion()
+        {
+            var line = _csvParser.GetFirstLineByFilterOrNull(l =>
+                l.OriginalLine.IndexOf(AquaCalcConstants.FirmwareVersion,StringComparison.OrdinalIgnoreCase) >= 0);
+
+            if (string.IsNullOrWhiteSpace(line?.OriginalLine))
+            {
+                return string.Empty;
+            }
+
+            var regEx = new Regex($@"{AquaCalcConstants.FirmwareVersion}\s+(?<Version>.+)\s+\(c\)");
+            var match = regEx.Match(line.OriginalLine);
+            if (match.Success && match.Groups["Version"].Success)
+            {
+                return match.Groups["Version"].Value;
+            }
+
+            return string.Empty;
         }
 
         public DateTime GetVisitDate()
