@@ -11,6 +11,8 @@ namespace AquaCalc5000.Parsers
     {
         private readonly CsvParser _csvParser;
 
+        public Dictionary<string,string> Settings { get; set; } = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+
         public AquaCalcCsvParser(Stream stream)
         {
             if (stream == null)
@@ -42,7 +44,7 @@ namespace AquaCalc5000.Parsers
 
         public ParsedData Parse()
         {
-            var config = new ConfigLoader().Load();
+            var config = new ConfigLoader().Load(Settings);
 
             var parsedData = new HeaderParser(_csvParser).Parse();
 

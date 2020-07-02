@@ -1,27 +1,22 @@
-﻿using System.IO;
-using AquaCalc5000.Parsers;
+﻿using System.Collections.Generic;
 
 namespace AquaCalc5000.Config
 {
     public class ConfigLoader
     {
-        public Config Load()
+        public Config Load(Dictionary<string, string> settings)
         {
-            // ReSharper disable once AssignNullToNotNullAttribute
-            var path = Path.Combine(Path.GetDirectoryName(GetType().Assembly.Location), Config.ConfigFileName);
-
-            if (!File.Exists(path))
+            if (settings != null
+                && settings.TryGetValue(nameof(Config.AssumeUsgsSiteIdentifiers), out var text)
+                && bool.TryParse(text, out var assumeUsgsSiteIdentifiers))
             {
-                return new Config();
+                return new Config
+                {
+                    AssumeUsgsSiteIdentifiers = assumeUsgsSiteIdentifiers
+                };
             }
 
-            var text = File.ReadAllText(path);
-
-            var csvParser = new CsvParser(text, '=');
-            var isUsgsSiteId = csvParser.GetRequiredBooleanByLabelOrDefault(
-                nameof(Config.AssumeUsgsSiteIdentifiers));
-
-            return new Config {AssumeUsgsSiteIdentifiers = isUsgsSiteId};
+            return new Config();
         }
     }
 }

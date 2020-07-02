@@ -6,8 +6,31 @@ An AQTS field data plugin for AQTS 2019.2-or-newer systems, which can read disch
 
 ## Want to install this plugin?
 
-- Download the latest release of the plugin [here](../../releases/latest)
 - Install it on AQTS 2019.2-or-newer via the System Configuration page
+
+### Plugin Compatibility Matrix
+
+Choose the appropriate version of the plugin for your AQTS app server.
+
+| AQTS Version | Latest compatible plugin Version |
+| --- | --- |
+| AQTS 2020.2 | [v20.2.0](https://github.com/AquaticInformatics/aquacalc-5000-field-data-plugin/releases/download/v20.2.0/AquaCalc5000.plugin) |
+| AQTS 2020.1<br/>AQTS 2019.4<br/>AQTS 2019.3<br/>AQTS 2019.2| [v19.2.10](https://github.com/AquaticInformatics/aquacalc-5000-field-data-plugin/releases/download/v19.2.10/AquaCalc5000.plugin) |
+
+## Configuring the plugin
+
+The plugin has one configurable setting. The configuration settings are stored in different places, depending on the version of the plugin.
+
+| Version | Configuration location |
+| --- | --- |
+| 20.2.x | Use the Settings page of the System Config app to change the settings.<br/><br/>**Group**: `FieldDataPluginConfig-AquaCalc5000`<br/>**Key**: `AssumeUsgsSiteIdentifiers`<br/>**Value**: Either `true` or `false`. Defaults to `true` if not set.|
+| 19.2.x | Read from the INI file in the plugin folder, at `%ProgramData%\Aquatic Informatics\AQUARIUS Server\FieldDataPlugins\AquaCalc5000\Config.ini`<br/><br/>`AssumeUsgsSiteIdentifiers=true` |
+
+### `AssumeUsgsSiteIdentifiers`
+`AssumeUsgsSiteIdentifiers` defaults to true, and controls whether USGS-style 8-digit site identifiers should be used when the `GAGE ID#` is numeric.
+
+When `AssumeUsgsSiteIdentifiers` is true, leading zeros will be added to site identifier so that they conform to the 8-digit identifier format.
+When `AssumeUsgsSiteIdentifiers` is false, no leading zeros will be added, and the `GAGE ID#` value will be used as-is.
 
 ## Requirements for building the plugin from source
 
