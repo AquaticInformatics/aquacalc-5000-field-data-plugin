@@ -18,7 +18,11 @@ namespace AquaCalc5000
         public ParseFileResult ParseFile(Stream fileStream, LocationInfo targetLocation,
             IFieldDataResultsAppender appender, ILog logger)
         {
-            var parser = new AquaCalcCsvParser(fileStream);
+            var parser = new AquaCalcCsvParser(fileStream)
+            {
+                Settings = appender.GetPluginConfigurations()
+            };
+
             if (!parser.CanParse())
             {
                 return ParseFileResult.CannotParse();
