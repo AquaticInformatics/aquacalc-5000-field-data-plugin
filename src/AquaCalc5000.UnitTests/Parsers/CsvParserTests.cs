@@ -1,4 +1,5 @@
-﻿using System.Linq;
+using System;
+using System.Linq;
 using AquaCalc5000.Parsers;
 using NUnit.Framework;
 
@@ -34,7 +35,7 @@ namespace AquaCalc5000.UnitTests.Parsers
         public void GetRequiredStringValueByLabel_ThrowsIfValueNotFound(string csv, string label)
         {
             var parser = new CsvParser(csv);
-            Assert.That(() => parser.GetRequiredStringByLabel(label), Throws.ArgumentException);
+            Assert.Throws<ArgumentException>(() => parser.GetRequiredStringByLabel(label));
         }
 
         [Test]
